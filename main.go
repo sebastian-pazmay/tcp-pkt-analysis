@@ -1,7 +1,7 @@
 package main
 
 import (
-    "fmt"
+    // "fmt"
     "log"
 	"tcp-pkt-analysis/utils"
     "github.com/google/gopacket"
@@ -22,6 +22,7 @@ func main() {
     defer pcapFile.Close()
     pktSrc := gopacket.NewPacketSource(pcapFile, pcapFile.LinkType())
     for packet := range pktSrc.Packets() {
-        go PayloadTCP(packet)
+        // fmt.Printf("%T\n", packet)
+        go utils.PayloadTCP(packet)
     }
 }
