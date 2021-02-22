@@ -6,6 +6,7 @@ import (
 )
 
 func PayloadTCP(pkt gopacket.Packet) {
+	fmt.Println("pkt")
 	fmt.Println(pkt)
 	applicationLayer := pkt.ApplicationLayer()
 	fmt.Printf("%s\n", applicationLayer.Payload())
