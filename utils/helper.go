@@ -1,14 +1,14 @@
 package utils
 
 import (
-    "fmt"
+	"fmt"
 	"github.com/google/gopacket"
 )
 
 func PayloadTCP(pkt gopacket.Packet) {
-	fmt.Println("pkt")
-	fmt.Println(pkt)
 	applicationLayer := pkt.ApplicationLayer()
-	fmt.Printf("%s\n", applicationLayer.Payload())
-	fmt.Printf("%T\n", applicationLayer.Payload())
+	pktPayload := applicationLayer.Payload()
+	pktPayloadString := string(pktPayload[:])
+	fmt.Printf("VALUE: %s\n", pktPayloadString)
+	fmt.Printf("TYPE: %T\n", pktPayloadString)
 }
