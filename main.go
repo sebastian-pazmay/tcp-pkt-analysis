@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/pcap"
 	"log"
@@ -8,7 +9,7 @@ import (
 )
 
 var (
-	filter       string = "ip proto tcp"
+	filter       string = "vlan and tcp"
 	pcapFilePath string = "capture/tcp.pcap"
 	pcapHandle   *pcap.Handle
 	err          error
@@ -21,9 +22,15 @@ func main() {
 	}
 	defer pcapHandle.Close()
 	err = pcapHandle.SetBPFFilter(filter)
-	pktSrc := gopacket.NewPacketSource(pcapHandle, pcapHandle.LinkType())
-	for packet := range pktSrc.Packets() {
-		// fmt.Printf("%T\n", packet)
-		utils.PayloadTCP(packet)
+	if err != nil {
+		log.Fatal(err)
 	}
+	pktSrc := gopacket.NewPacketSource(pcapHandle, pcapHandle.LinkType())
+	counter := 0
+	for packet := range pktSrc.Packets() {
+		counter++
+		// fmt.Printf("%T\n", packet)
+		utils.PayloadPacket(packet)
+	}
+	fmt.Printf("Total filtered pkts in pcap: %v", counter)
 }

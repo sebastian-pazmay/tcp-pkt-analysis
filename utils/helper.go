@@ -5,7 +5,7 @@ import (
 	"github.com/google/gopacket"
 )
 
-func PayloadTCP(pkt gopacket.Packet) {
+func PayloadPacket(pkt gopacket.Packet) {
 	applicationLayer := pkt.ApplicationLayer()
 	pktPayload := applicationLayer.Payload()
 	pktPayloadString := string(pktPayload[:])
